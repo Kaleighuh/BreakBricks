@@ -1,50 +1,61 @@
-using UnityEngine;
+﻿﻿using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class Brick : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer { get; private set; }
-    public Color[] states;
+    public Color[] states = new Color[0];
     public int health { get; private set; }
+    public int points = 100;
     public bool unbreakable;
 
     private void Awake()
     {
-        this.spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        if (!this.unbreakable)
+        ResetBrick();
+    }
+
+    public void ResetBrick()
+    {
+        gameObject.SetActive(true);
+
+        if (!unbreakable)
         {
-            this.health = this.states.Length;
-            this.spriteRenderer.color = this.states[this.health - 1];
+            health = states.Length;
+            spriteRenderer.color = states[health - 1];
         }
     }
 
     private void Hit()
     {
-        if (this.unbreakable)
-        {
+        if (unbreakable) {
             return;
         }
-        this.health--;
-        
-        if (this.health <= 0)
-        {
-            this.gameObject.SetActive(false);
+
+        health--;
+
+        if (health <= 0) {
+            gameObject.SetActive(false);
+        } else {
+            spriteRenderer.color = states[health - 1];
         }
-        else
-        {
-            this.spriteRenderer.color = this.states[this.health - 1];
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+
+        if (gameManager != null) {
+            gameManager.Hit(this);
         }
-        
     }
-    private void OnCollistionEnter2D(Collision2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Ball")
-        {
+        if (collision.gameObject.name == "Ball") {
             Hit();
         }
     }
-    
+
 }
