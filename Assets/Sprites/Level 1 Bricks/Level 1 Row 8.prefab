@@ -126,4 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states:
   - {r: 1, g: 1, b: 1, a: 0}
+  points: 100
   unbreakable: 0
