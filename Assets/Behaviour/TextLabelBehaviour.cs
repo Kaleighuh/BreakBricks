@@ -7,9 +7,6 @@ public class TextLabelBehaviour : MonoBehaviour
 {
     public Text label;
     public UnityEvent startEvent;
-    public UnityEvent onClick;
-    public UnityEvent onCollision;
-
     private void Start()
     {
         label = GetComponent<Text>();
@@ -26,8 +23,4 @@ public class TextLabelBehaviour : MonoBehaviour
         label.text = obj.value.ToString(CultureInfo.InvariantCulture);
     }
     
-    private void onCollisionEnter()
-    {
-        onCollision.Invoke();
-    }
 }
