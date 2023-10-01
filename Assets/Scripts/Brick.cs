@@ -16,7 +16,7 @@ public class Brick : MonoBehaviour
 
     private void Start()
     {
-        ResetBrick();
+        //ResetBrick();
     }
 
     public void ResetBrick()
