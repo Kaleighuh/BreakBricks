@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    public UnityEvent scoreEvent;
     const int NUM_LEVELS = 2;
 
     public Ball ball { get; private set; }
@@ -86,10 +88,11 @@ public class GameManager : MonoBehaviour
 
     public void Hit(Brick brick)
     {
-        score += brick.points;
+        //score += brick.points;
+        scoreEvent.Invoke();
 
         if (Cleared()) {
-            LoadLevel(level + 1);
+            LoadLevel(this.level + 1);
         }
     }
 
